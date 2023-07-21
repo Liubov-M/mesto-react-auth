@@ -1,0 +1,6 @@
+.element {
+  margin: 0;
+  border-radius: 3%;
+  overflow: hidden;
+  position: relative;
+}

@@ -1,0 +1,10 @@
+.content {
+  max-width: 880px;
+  min-height: 75vh;
+  margin: 0 auto;
+}
+@media screen and (max-width: 900px) {
+    .content {
+        width: calc(100% - 19px*2);
+      }
+}

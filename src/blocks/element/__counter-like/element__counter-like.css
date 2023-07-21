@@ -1,0 +1,8 @@
+.element__counter-like {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.21;
+    position: absolute;
+    right: 28px;
+    bottom: 15px;
+}

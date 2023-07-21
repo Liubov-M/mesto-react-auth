@@ -1,0 +1,12 @@
+.authorization__text {
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.17;
+  color: #fff;
+  text-decoration: none;
+  margin: 15px auto;
+}
+.authorization__text:hover {
+  opacity: 0.8;
+}

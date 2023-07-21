@@ -1,0 +1,16 @@
+.popup__modal-registration {
+  max-width: 430px;
+  height: 330px;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  position: relative;
+  background-color: #fff;
+  border-radius: 3%;
+}
+@media screen and (max-width: 525px) {
+  .popup__form {
+    max-width: 282px;
+    height: 308px;
+  }
+}

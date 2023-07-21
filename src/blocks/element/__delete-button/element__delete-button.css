@@ -1,0 +1,19 @@
+.element__delete-button {
+    width: 18px;
+    height: 19px;
+    background-image: url(../../../images/корзина.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgba(0, 0, 0, 0);
+    border: 0;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    padding: 0;
+  }
+  .element__delete-button:hover {
+    opacity: 0.6;
+    transition: 1s ease-in-out;
+  }
