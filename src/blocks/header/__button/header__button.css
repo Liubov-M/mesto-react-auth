@@ -1,0 +1,19 @@
+.header__button {
+    display: none;
+    width: 24px;
+    height: 24px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-image: url(../../../images/burger-button.svg);
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin-right: 15px;
+    cursor: pointer;
+  }
+  @media (max-width: 650px) {
+    .header__button {
+      display: block;
+    }
+  }

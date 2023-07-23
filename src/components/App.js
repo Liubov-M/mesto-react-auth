@@ -1,4 +1,4 @@
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Route, Switch, useHistory, Redirect } from 'react-router-dom';
 import Main from './Main.js'
 import Footer from './Footer.js'
 import PopupWithForm from './PopupWithForm.js'
@@ -13,7 +13,8 @@ import Login from './Login.js';
 import Register from './Register.js';
 import InfoTooltip from './InfoTooltip.js'
 import ProtectedRoute from './ProtectedRoute.js'
-import { register, login, checkToken } from '../utils/auth.js';
+import * as mestoAuth from '../utils/mestoAuth.js';
+import Header from './Header.js';
 
 export default function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
@@ -25,68 +26,55 @@ export default function App() {
   const [cards, setCards] = useState([])
 
   //авторизация
-  const [isAuth, setIsAuth] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userData, setUserData] = useState('');
-  const history = useHistory ()
+  const [userEmail, setUserEmail] = useState('')
+  const [loggedIn, setLoggedIn] = useState(false)
+  const [isAuth, setIsAuth] = useState(false)
+  const history = useHistory()
 
-  const auth = (jwt) => {
-    return checkToken(jwt)
+  const auth = (token) => {
+    return mestoAuth.getData(token)
     .then((res) => {
       if (res) {
-        // const { email } = res;
-        setIsLoggedIn (true);
-        setUserData (res.email)
+        setLoggedIn(true)
+        setUserEmail(res.data.email)
       }
-    }
-    )
+    })
   }
-
   useEffect(() => {
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      auth(jwt);
+    const jwt = localStorage.getItem("jwt");
+    if(jwt) {
+      auth(jwt)
     }
   }, [])
-
   useEffect(() => {
-    if (isLoggedIn) {
-      history.push('/');
-    }
-  }, [isLoggedIn, history])
+    if(loggedIn) history.push("/")
+  }, [loggedIn])
 
-  const onLogin = ({ password, email }) => {
-    return login(password, email)
+  const onLogin = ({ email, password }) => {
+    return mestoAuth.login(email, password)
       .then((res) => {
-        if (res.jwt) {
-          setIsLoggedIn(true);
-          setIsAuth(true);
-          localStorage.setItem('jwt', res.jwt);
-        }
-     })
-     .catch((err) => {
-      setIsAuth(false);
-      openRegistrationStatus();
-      if (err.status === 400) {
-        console.log('400 - не передано одно из полей')
-      } else if (err.status === 401) {
-        console.log('401 - пользователь с email не найден')
-      }
-    });
+        if(res.token)
+          setUserEmail(email)
+          setLoggedIn(true)
+          localStorage.setItem('jwt', res.token)
+      })
   }
-  const onRegister = ({ password, email }) => {
-    return register(password, email)
-      .then((res) => {
-        if (!res || res.status === 400) throw new Error('Hекорректно заполнено одно из полей');
-        return res
-     })}
 
-  const handleLogout = () => {
-    localStorage.removeItem('jwt');
-    setIsLoggedIn(false);
-    setIsAuth(false);
-    history.push('/sign-in');
-  };
+  const onRegister = ({ email, password }) => {
+    return mestoAuth.register(email, password)
+      .then((res) => {
+        setIsAuth(true);
+        openRegistrationStatus();
+        return res
+      })
+      .catch((err) => {
+        setIsAuth(false);
+        openRegistrationStatus();
+        if (err.status === 400) {
+          console.log('400 - некорректно заполнено одно из полей')}
+      })
+  }
+
   function openRegistrationStatus() {
     setIsTooltipOpen(true);
     window.addEventListener('click', handleCloseOnOverlay);
@@ -181,27 +169,31 @@ export default function App() {
     <div className="App">
       <div className="page">
         <Switch>
-          <Route
-            exact path="/">
-              <Main
-            isLoggedIn={isLoggedIn}
-            onEditProfile={handleEditProfileClick}
-            onEditAvatar={handleEditAvatarClick}
-            onAddPlace={handleAddPlaceClick}
-            onCardClick={handleCardClick}
-            onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
-            cards={cards}
-            logout={handleLogout}
-            userData={userData} />
-      </Route>
+          <ProtectedRoute exact path="/"
+          component={Main}
+          loggedIn={loggedIn}
+          onEditProfile={handleEditProfileClick}
+          onEditAvatar={handleEditAvatarClick}
+          onAddPlace={handleAddPlaceClick}
+          onCardClick={handleCardClick}
+          onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
+          cards={cards}
+          userData={userEmail}
+          />
 
           <Route path="/sign-up">
+            <Header name="signup"/>
             <Register onRegister={onRegister} />
           </Route>
 
           <Route path="/sign-in">
+            <Header name="signin"/>
             <Login onLogin={onLogin} />
+          </Route>
+
+          <Route path="/*">
+            <Redirect to="/sign-in" />
           </Route>
         </Switch>
 

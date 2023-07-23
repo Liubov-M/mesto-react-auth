@@ -55,3 +55,7 @@
 @import url(./blocks/popup/__modal-registration/popup__modal-registration.css);
 @import url(./blocks/popup/__registration-image/popup__registration-image.css);
 @import url(./blocks/popup/__registration-text/popup__registration-text.css);
+@import url(./blocks/header/__button/header__button.css);
+@import url(./blocks/header/__button/_active/header__button_active.css);
+@import url(./blocks/header/__container/_opened/header__container_opened.css);
+@import url(./blocks/header/_opened/heder_opened.css);

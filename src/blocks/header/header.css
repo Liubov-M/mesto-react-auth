@@ -3,9 +3,10 @@
   max-width: 880px;
   width: 100%;
   display: flex;
+  position: relative;
   justify-content: space-between;
   padding: 45px 0 41px;
-  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+  border-bottom: 1px solid rgba(84, 84, 84, .7);
 }
 @media screen and (max-width: 900px) {
     .header {
@@ -15,6 +16,5 @@
 @media screen and (max-width: 525px) {
     .header {
         padding: 28px 0 31.6px;
-        width: 100%;
       }
 }

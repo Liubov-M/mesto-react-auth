@@ -6,9 +6,10 @@
   margin: 0;
   align-self: flex-end;
 }
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 650px) {
   .header__user-email {
-    font-size: 14px;
+    align-self: center;
+    margin-bottom: 17px;
   }
 }
 @media screen and (max-width: 360px){

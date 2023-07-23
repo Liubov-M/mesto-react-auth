@@ -1,4 +1,18 @@
 .header__container {
   display: flex;
   justify-content: space-between;
+  transition: height .1s linear;
+}
+@media (max-width: 650px) {
+  .header__container {
+    flex-direction: column;
+    height: 0;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    justify-content: center;
+    border-bottom: 1px solid rgba(84, 84, 84, .7);
+  }
 }

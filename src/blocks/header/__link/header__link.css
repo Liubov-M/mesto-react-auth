@@ -12,14 +12,14 @@
 .header__link:hover {
   opacity: 0.8;
 }
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 650px) {
   .header__link {
     padding: 0 27px 0 24px;
+    align-self: center;
   }
 }
 @media screen and (max-width: 425px) {
   .header__link {
-    font-size: 14px;
     max-width: 103px;
     padding: 0 10px 0;
   }
