@@ -58,6 +58,13 @@ export default function App() {
           setLoggedIn(true)
           localStorage.setItem('jwt', res.token)
       })
+      .catch((err) => {
+        if (err.status === 400) {
+          console.log('400 - не передано одно из полей')
+        } else if (err.status === 401) {
+          console.log('401 - пользователь с email не найден')
+        }
+      })
   }
 
   const onRegister = ({ email, password }) => {

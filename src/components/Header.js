@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import logo from '../images/Logo.svg'
 
 export default function Header({ login, name }) {
-  // const currentPage = useLocation().pathname.split('/').pop();
   const [count, setCount] = useState(false)
 
   function handleClick() {
